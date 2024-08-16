@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj0luvmtwmjux"]
+
+[ext_resource type="FontFile" uid="uid://btgeg3ppq5wf8" path="res://Fonte/Alkhemikal.ttf" id="1_2crt0"]
+[ext_resource type="Script" path="res://pause.gd" id="1_h8q2c"]
+[ext_resource type="PackedScene" uid="uid://ctfn85ijt57vg" path="res://botãoMenu.tscn" id="1_yt5ik"]
+[ext_resource type="AudioStream" uid="uid://dewf6wmoconhy" path="res://Audio/MenuSelect.wav" id="4_xeuyd"]
+
+[node name="Pause" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h8q2c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.219608, 0.0588235, 0.745098)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/font = ExtResource("1_2crt0")
+theme_override_font_sizes/font_size = 22
+text = "Jogo Pausado"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+
+[node name="Continuar" parent="VBoxContainer" instance=ExtResource("1_yt5ik")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Sair")
+focus_neighbor_bottom = NodePath("../Sair")
+ignore_texture_size = true
+text = "Continuar"
+arrow_margin_from_center = 40
+
+[node name="Sair" parent="VBoxContainer" instance=ExtResource("1_yt5ik")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Continuar")
+focus_neighbor_bottom = NodePath("../Continuar")
+text = "Sair"
+arrow_margin_from_center = 25
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xeuyd")
+volume_db = -5.0
+
+[connection signal="pressed" from="VBoxContainer/Continuar" to="." method="_on_continuar_pressed"]
+[connection signal="pressed" from="VBoxContainer/Sair" to="." method="_on_sair_pressed"]

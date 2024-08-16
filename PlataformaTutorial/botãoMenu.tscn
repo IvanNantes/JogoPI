@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctfn85ijt57vg"]
+
+[ext_resource type="Script" path="res://botãoMenu.gd" id="1_23h1g"]
+[ext_resource type="FontFile" uid="uid://btgeg3ppq5wf8" path="res://Fonte/Alkhemikal.ttf" id="1_xdr8y"]
+[ext_resource type="Texture2D" uid="uid://b78boaegf4b82" path="res://arte/bolinha.png" id="3_vkkl3"]
+[ext_resource type="AudioStream" uid="uid://bvyek5y6nr4rj" path="res://Audio/MenuPass.wav" id="4_qvgpj"]
+
+[node name="Botão" type="TextureButton"]
+custom_minimum_size = Vector2(0, 20)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+script = ExtResource("1_23h1g")
+arrow_margin_from_center = 70
+
+[node name="Texto" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/normal_font = ExtResource("1_xdr8y")
+bbcode_enabled = true
+text = "[center]Text Button[/center]"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="arrowLeft" type="Sprite2D" parent="."]
+position = Vector2(327, 10)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_vkkl3")
+
+[node name="arrowRight" type="Sprite2D" parent="."]
+position = Vector2(275, 10)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_vkkl3")
+
+[node name="Pass" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qvgpj")
+volume_db = -10.0
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6cnji02trphg"]
+
+[ext_resource type="Texture2D" uid="uid://cf5gw7ulpbeua" path="res://arte/map_player-Sheet.png" id="1_nkjil"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bjdv"]
+atlas = ExtResource("1_nkjil")
+region = Rect2(0, 0, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5ri4"]
+atlas = ExtResource("1_nkjil")
+region = Rect2(16, 0, 16, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oyp0j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bjdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5ri4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grhtf"]
+size = Vector2(14, 7)
+
+[node name="MapPlayer" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oyp0j")
+frame_progress = 0.234472
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_grhtf")

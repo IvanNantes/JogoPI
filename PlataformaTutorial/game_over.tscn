@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8eicyffcx6j0"]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1_5e58l"]
+[ext_resource type="PackedScene" uid="uid://ctfn85ijt57vg" path="res://botãoMenu.tscn" id="1_uc1pm"]
+[ext_resource type="FontFile" uid="uid://btgeg3ppq5wf8" path="res://Fonte/Alkhemikal.ttf" id="2_p0ar0"]
+[ext_resource type="Shader" path="res://crt.gdshader" id="3_qcfx5"]
+[ext_resource type="AudioStream" uid="uid://ucfcfq5xfmg7" path="res://Audio/Melody of sorrow.mp3" id="4_83s7s"]
+[ext_resource type="AudioStream" uid="uid://dewf6wmoconhy" path="res://Audio/MenuSelect.wav" id="6_43uy2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdjpu"]
+shader = ExtResource("3_qcfx5")
+
+[node name="GameOver" type="Node"]
+script = ExtResource("1_5e58l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.219608, 0.0588235, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 7.0
+offset_top = 140.0
+offset_right = 390.0
+offset_bottom = 223.0
+
+[node name="Reiniciar fase" parent="VBoxContainer" instance=ExtResource("1_uc1pm")]
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Sair")
+focus_neighbor_bottom = NodePath("../Menu")
+text = "Reiniciar fase"
+arrow_margin_from_center = 54
+
+[node name="Menu" parent="VBoxContainer" instance=ExtResource("1_uc1pm")]
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Reiniciar fase")
+focus_neighbor_bottom = NodePath("../Sair")
+text = "Menu"
+arrow_margin_from_center = 32
+
+[node name="Sair" parent="VBoxContainer" instance=ExtResource("1_uc1pm")]
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Menu")
+focus_neighbor_bottom = NodePath("../Reiniciar fase")
+text = "Sair"
+arrow_margin_from_center = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 86.0
+offset_top = 54.0
+offset_right = 389.0
+offset_bottom = 106.0
+theme_override_colors/default_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/normal_font = ExtResource("2_p0ar0")
+theme_override_font_sizes/normal_font_size = 41
+text = "VOCÊ PERDEU"
+tab_size = 6
+
+[node name="Filter" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Filter"]
+material = SubResource("ShaderMaterial_wdjpu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_83s7s")
+autoplay = true
+
+[node name="Select" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_43uy2")
+volume_db = -5.0
+
+[connection signal="pressed" from="VBoxContainer/Reiniciar fase" to="." method="_on_reiniciar_fase_pressed"]
+[connection signal="pressed" from="VBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/Sair" to="." method="_on_sair_pressed"]

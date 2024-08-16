@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvapcge65nc37"]
+
+[ext_resource type="PackedScene" uid="uid://ctfn85ijt57vg" path="res://botãoMenu.tscn" id="1_4f52m"]
+[ext_resource type="Texture2D" uid="uid://b4b7tmr62dkrb" path="res://arte/menu.png" id="1_fa860"]
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_luaed"]
+[ext_resource type="FontFile" uid="uid://btgeg3ppq5wf8" path="res://Fonte/Alkhemikal.ttf" id="2_cv421"]
+[ext_resource type="Shader" path="res://crt.gdshader" id="2_i3fib"]
+[ext_resource type="AudioStream" uid="uid://dgtxenwrumiat" path="res://Audio/In the Beningin.mp3" id="6_mgi3n"]
+[ext_resource type="AudioStream" uid="uid://dewf6wmoconhy" path="res://Audio/MenuSelect.wav" id="7_dw1ay"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yww8"]
+shader = ExtResource("2_i3fib")
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_luaed")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(0, 9)
+scale = Vector2(0.837037, 0.837037)
+texture = ExtResource("1_fa860")
+centered = false
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/font = ExtResource("2_cv421")
+theme_override_font_sizes/font_size = 23
+text = "Lifinu's Quest"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+alignment = 1
+
+[node name="Jogar" parent="VBoxContainer/VBoxContainer" instance=ExtResource("1_4f52m")]
+layout_mode = 2
+size_flags_vertical = 1
+focus_neighbor_top = NodePath("../Sair")
+focus_neighbor_bottom = NodePath("../Opções")
+text = "Jogar"
+arrow_margin_from_center = 32
+
+[node name="Opções" parent="VBoxContainer/VBoxContainer" instance=ExtResource("1_4f52m")]
+layout_mode = 2
+size_flags_vertical = 1
+focus_neighbor_top = NodePath("../Jogar")
+focus_neighbor_bottom = NodePath("../Sair")
+text = "Opções"
+arrow_margin_from_center = 34
+
+[node name="Sair" parent="VBoxContainer/VBoxContainer" instance=ExtResource("1_4f52m")]
+layout_mode = 2
+size_flags_vertical = 1
+focus_neighbor_top = NodePath("../Opções")
+focus_neighbor_bottom = NodePath("../Jogar")
+text = "Sair"
+arrow_margin_from_center = 25
+
+[node name="Filter" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Filter"]
+material = SubResource("ShaderMaterial_8yww8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(240, 114)
+stream = ExtResource("6_mgi3n")
+volume_db = 1.368
+autoplay = true
+
+[node name="Select" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_dw1ay")
+volume_db = -5.0
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Jogar" to="." method="_on_jogar_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Opções" to="." method="_on_opções_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Sair" to="." method="_on_sair_pressed"]

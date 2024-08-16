@@ -1,0 +1,149 @@
+[gd_scene load_steps=20 format=3 uid="uid://djvbfr3ysr23j"]
+
+[ext_resource type="Shader" path="res://crt.gdshader" id="1_pogql"]
+[ext_resource type="Texture2D" uid="uid://d4ak8rk4c2ibp" path="res://arte/torre_fundo_mapa.png" id="2_e8sk0"]
+[ext_resource type="Texture2D" uid="uid://bgsqyfcvw2gd6" path="res://arte/arvore_mapa-Sheet.png" id="2_sf3tr"]
+[ext_resource type="Texture2D" uid="uid://cw8vp6clxg8we" path="res://arte/torre_mapa.png" id="2_xdonk"]
+[ext_resource type="PackedScene" uid="uid://c6cnji02trphg" path="res://map_player.tscn" id="4_bbqc7"]
+[ext_resource type="Script" path="res://map_player.gd" id="5_8s64h"]
+[ext_resource type="Texture2D" uid="uid://ba840iu5cfait" path="res://arte/map_fases.png" id="5_ejaxj"]
+[ext_resource type="Texture2D" uid="uid://cr4u8kbxntka" path="res://arte/caminho.png" id="5_hi8s4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ih3j"]
+atlas = ExtResource("2_sf3tr")
+region = Rect2(0, 0, 320, 222)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svd0x"]
+atlas = ExtResource("2_sf3tr")
+region = Rect2(320, 0, 320, 222)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnn35"]
+atlas = ExtResource("2_sf3tr")
+region = Rect2(640, 0, 320, 222)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vexra"]
+atlas = ExtResource("2_sf3tr")
+region = Rect2(960, 0, 320, 222)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3m0w"]
+atlas = ExtResource("2_sf3tr")
+region = Rect2(1280, 0, 320, 222)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3tum"]
+atlas = ExtResource("2_sf3tr")
+region = Rect2(1600, 0, 320, 222)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8jfiu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ih3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svd0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnn35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vexra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3m0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3tum")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4o721"]
+atlas = ExtResource("5_ejaxj")
+region = Rect2(22, 0, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1gub"]
+atlas = ExtResource("5_ejaxj")
+region = Rect2(0, 0, 22, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2t3ir"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4o721")
+}],
+"loop": true,
+"name": &"Fechado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1gub")
+}],
+"loop": true,
+"name": &"aberto",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o5fbw"]
+shader = ExtResource("1_pogql")
+
+[node name="Map" type="Node"]
+
+[node name="TorreFundoMapa" type="Sprite2D" parent="."]
+position = Vector2(240, -270)
+texture = ExtResource("2_e8sk0")
+
+[node name="Arvore" type="AnimatedSprite2D" parent="."]
+position = Vector2(161, 160)
+sprite_frames = SubResource("SpriteFrames_8jfiu")
+autoplay = "default"
+frame_progress = 0.216893
+
+[node name="TorreMapa" type="Sprite2D" parent="."]
+position = Vector2(240, -271)
+texture = ExtResource("2_xdonk")
+
+[node name="Caminho" type="Sprite2D" parent="."]
+position = Vector2(306, -169)
+texture = ExtResource("5_hi8s4")
+
+[node name="Fase1" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fase1"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Fase1"]
+position = Vector2(351.5, 217.5)
+scale = Vector2(1.04545, 1.04545)
+sprite_frames = SubResource("SpriteFrames_2t3ir")
+animation = &"aberto"
+
+[node name="MapPlayer" parent="." instance=ExtResource("4_bbqc7")]
+position = Vector2(351, 210)
+script = ExtResource("5_8s64h")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="MapPlayer"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(351, 210)
+zoom = Vector2(0.85, 0.85)
+limit_left = 0
+limit_top = -810
+limit_right = 480
+limit_bottom = 270
+limit_smoothed = true
+position_smoothing_speed = 2.0
+
+[node name="Filter" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Filter"]
+material = SubResource("ShaderMaterial_o5fbw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

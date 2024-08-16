@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4733h1ig3n0l"
+path="res://.godot/imported/Into the tower.mp3-ded8ee38a2a0c5eca4ab5e4e28065e7a.mp3str"
+
+[deps]
+
+source_file="res://Audio/Into the tower.mp3"
+dest_files=["res://.godot/imported/Into the tower.mp3-ded8ee38a2a0c5eca4ab5e4e28065e7a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
