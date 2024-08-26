@@ -145,7 +145,7 @@ func _physics_process(delta):
 	
 		
 	direction = Input.get_vector("left", "right", "up", "down")
-	if in_roll or in_dive or diveroll or taking_damage:
+	if in_roll or in_dive or diveroll or taking_damage or life <= 0:
 		pass
 	elif direction.y < -0.50 and direction.y > -0.95:
 		if direction.x > 0:
@@ -262,7 +262,7 @@ func update_animation():
 				
 
 func update_facing_direction():
-	if in_dive or is_attacking or taking_damage:
+	if in_dive or is_attacking or taking_damage or life <= 0:
 		pass
 	elif direction.x > 0:
 		$Attack.dir_player(1)

@@ -4,6 +4,7 @@ var follow_player : bool = true
 var speed : int = 20.0
 var life : int = 3.0
 var dead_state : bool = false
+var running : bool = false
 var taking_damage = false
 var player_locate : int = 0
 var move_direction = -1
@@ -47,14 +48,25 @@ func _physics_process(delta):
 		on_air = false
 		
 	if taking_damage:
-		velocity.y = -70
-		velocity.x = 150 * (move_direction * -1)
+		velocity.y = -50
+		velocity.x = 110 * (move_direction * -1)
+		
+	if running:
+		pass
+	elif not on_air:
+		velocity.x = 0
 	
 	move_and_slide()
 	update_animation()
 	update_facing_direction()
 	
 func update_animation():
+	if not dead_state:
+		animated_sprite.scale.x = 1
+		animated_sprite.scale.y = 1
+	else:
+		animated_sprite.scale.x = 0.8
+		animated_sprite.scale.y = 0.8
 	if dead_state:
 		animated_sprite.play("dead")
 	elif on_air:
@@ -81,3 +93,7 @@ func _on_damage_cd_timeout():
 func _on_dead_timer_timeout():
 	queue_free()
 	dead_state = false
+
+
+func _on_player_locator_area_entered(area):
+	pass # Replace with function body.

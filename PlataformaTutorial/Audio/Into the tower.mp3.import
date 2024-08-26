@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/Into the tower.mp3-ded8ee38a2a0c5eca4ab5e4e28
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8eicyffcx6j0"]
+[gd_scene load_steps=9 format=3 uid="uid://c8eicyffcx6j0"]
 
 [ext_resource type="Script" path="res://game_over.gd" id="1_5e58l"]
 [ext_resource type="PackedScene" uid="uid://ctfn85ijt57vg" path="res://botãoMenu.tscn" id="1_uc1pm"]
+[ext_resource type="Texture2D" uid="uid://dhnmmr0wv6mig" path="res://arte/game_over.png" id="2_ckcjm"]
 [ext_resource type="FontFile" uid="uid://btgeg3ppq5wf8" path="res://Fonte/Alkhemikal.ttf" id="2_p0ar0"]
 [ext_resource type="Shader" path="res://crt.gdshader" id="3_qcfx5"]
 [ext_resource type="AudioStream" uid="uid://ucfcfq5xfmg7" path="res://Audio/Melody of sorrow.mp3" id="4_83s7s"]
@@ -21,11 +22,16 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0588235, 0.219608, 0.0588235, 1)
 
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect"]
+position = Vector2(195, 111)
+scale = Vector2(0.896296, 0.896296)
+texture = ExtResource("2_ckcjm")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 7.0
-offset_top = 140.0
-offset_right = 390.0
-offset_bottom = 223.0
+offset_left = 5.0
+offset_top = 113.0
+offset_right = 388.0
+offset_bottom = 196.0
 
 [node name="Reiniciar fase" parent="VBoxContainer" instance=ExtResource("1_uc1pm")]
 layout_mode = 2
@@ -53,12 +59,12 @@ arrow_margin_from_center = 30
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = 86.0
-offset_top = 54.0
-offset_right = 389.0
-offset_bottom = 106.0
+offset_top = 44.0
+offset_right = 329.0
+offset_bottom = 95.0
 theme_override_colors/default_color = Color(0.607843, 0.737255, 0.0588235, 1)
 theme_override_fonts/normal_font = ExtResource("2_p0ar0")
-theme_override_font_sizes/normal_font_size = 41
+theme_override_font_sizes/normal_font_size = 40
 text = "VOCÊ PERDEU"
 tab_size = 6
 
@@ -79,7 +85,8 @@ autoplay = true
 
 [node name="Select" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_43uy2")
-volume_db = -5.0
+volume_db = -15.263
+pitch_scale = 0.5
 
 [connection signal="pressed" from="VBoxContainer/Reiniciar fase" to="." method="_on_reiniciar_fase_pressed"]
 [connection signal="pressed" from="VBoxContainer/Menu" to="." method="_on_menu_pressed"]

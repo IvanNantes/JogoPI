@@ -4,7 +4,7 @@ extends CharacterBody2D
 var speed = 25.0
 var jump_velocity_up = -140.0
 var jump_velocity_forward = 200
-var move_direction = -1
+var move_direction = 1
 var wall_cd : bool = false
 var is_jumping : bool = false
 var fell : bool = false
