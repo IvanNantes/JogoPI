@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkx03glwg5qpr"
-path="res://.godot/imported/stairs.png-acdd2fc2ef520d7aa29a83bfaaaa37f4.ctex"
+uid="uid://pwjern6e1cxq"
+path="res://.godot/imported/porta.png-82611eeca68cad0eb02af864a0ac5c43.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://arte/stairs.png"
-dest_files=["res://.godot/imported/stairs.png-acdd2fc2ef520d7aa29a83bfaaaa37f4.ctex"]
+source_file="res://arte/porta.png"
+dest_files=["res://.godot/imported/porta.png-82611eeca68cad0eb02af864a0ac5c43.ctex"]
 
 [params]
 

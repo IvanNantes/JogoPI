@@ -88,11 +88,11 @@ func update_animation():
 		animated_sprite.play("idle")
 	
 func update_facing_direction():
-
-	if move_direction > 0:
-		animated_sprite.flip_h = false
-	elif move_direction < 0:
-		animated_sprite.flip_h = true
+	if not dead_state:
+		if move_direction > 0:
+			animated_sprite.flip_h = false
+		elif move_direction < 0:
+			animated_sprite.flip_h = true
 
 
 func _on_jump_cd_ready():

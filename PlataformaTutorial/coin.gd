@@ -10,5 +10,6 @@ func _ready():
 func _on_body_entered(body):
 	if body.name == "Player":
 		player.coin_collected()
+		$"../TelaVitoria/TelaVitoria".coletar_moeda()
 		queue_free()
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cwpo241i6m6ee"
+path="res://.godot/imported/Run and Slash.mp3-dc5e58ac36fb7b536725c32e783e631d.mp3str"
+
+[deps]
+
+source_file="res://Audio/Run and Slash.mp3"
+dest_files=["res://.godot/imported/Run and Slash.mp3-dc5e58ac36fb7b536725c32e783e631d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

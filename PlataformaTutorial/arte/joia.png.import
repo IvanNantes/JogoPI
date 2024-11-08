@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf5gw7ulpbeua"
-path="res://.godot/imported/map_player-Sheet.png-744029415aa909eb817f67072b3a2a20.ctex"
+uid="uid://byt0ygagfvu4y"
+path="res://.godot/imported/joia.png-fad9167f01ebb4fc47a93173a24c090e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://arte/map_player-Sheet.png"
-dest_files=["res://.godot/imported/map_player-Sheet.png-744029415aa909eb817f67072b3a2a20.ctex"]
+source_file="res://arte/joia.png"
+dest_files=["res://.godot/imported/joia.png-fad9167f01ebb4fc47a93173a24c090e.ctex"]
 
 [params]
 

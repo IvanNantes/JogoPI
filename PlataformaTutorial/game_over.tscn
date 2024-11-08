@@ -88,6 +88,16 @@ stream = ExtResource("6_43uy2")
 volume_db = -15.263
 pitch_scale = 0.5
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 33.0
+offset_top = 209.0
+offset_right = 363.0
+offset_bottom = 245.0
+theme_override_colors/default_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/normal_font = ExtResource("2_p0ar0")
+theme_override_font_sizes/normal_font_size = 11
+text = "[ W ] [ S ] Mover seleção                               [ Espaço ] [ J ] selecionar"
+
 [connection signal="pressed" from="VBoxContainer/Reiniciar fase" to="." method="_on_reiniciar_fase_pressed"]
 [connection signal="pressed" from="VBoxContainer/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="VBoxContainer/Sair" to="." method="_on_sair_pressed"]

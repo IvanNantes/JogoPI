@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var life_hud = $"../HUD/Panel/vida"
 @onready var coin_hud = $"../HUD/Coin_hud"
+@onready var tela_vitoria = $"../TelaVitoria/TelaVitoria"
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var had_jumped : float = 0
@@ -32,11 +33,19 @@ var td : bool = false
 var attack_clickoncd : bool = false
 var change_dir_air: bool = false
 var coins: int = 0
+var win: bool = false
 
 
 
 func _ready():
 	coin_hud.coins_setup(coins)
+	win = false
+	animation_locked = false
+
+func winner():
+	win = true
+	velocity.x = 0
+	animation_locked = true
 
 func damage_delt():
 	if life > 1:
@@ -100,121 +109,130 @@ func _physics_process(delta):
 			$ImmuneAnimation.start()
 		change_dir_air = false
 
-	
-	if Input.is_action_just_pressed("roll") and velocity.x !=0 and not taking_damage:
-		if is_on_floor() and rollCD == false and not in_dive and not diveroll:
-			in_roll = true
-			rollCD = true
-			$SpinSound.play()
-			$RollTime.start()
-			$RollCD.start()
-			if direction.x > 0:
-				velocity.x = 180
-			else:
-				velocity.x = -180
-			
-		elif not in_dive and not diveroll and not rollCD and ( Input.is_action_pressed("left") or  Input.is_action_pressed("right")):
-			in_dive = true
-			$JumpSound.play()
-			velocity.y = -150
-			if direction.x > 0:
-				velocity.x = 200
-			else:
-				velocity.x = -200
-			dir_diveroll = direction.x
-
-	if Input.is_action_just_pressed("jump") and not in_roll and not in_dive and not diveroll and not taking_damage:
-			if had_jumped == 0:
-				velocity.y = jump_velocity
-				had_jumped = 1
-				$JumpSound.play()
-				
-			elif had_jumped == 1:
-				in_double_jump = true
-				velocity.y = double_jump_velocity
-				had_jumped = 2
+	if not win:	
+		if Input.is_action_just_pressed("roll") and velocity.x !=0 and not taking_damage:
+			if is_on_floor() and rollCD == false and not in_dive and not diveroll:
+				in_roll = true
+				rollCD = true
 				$SpinSound.play()
-	
-	if Input.is_action_just_released("jump") and not in_roll and not in_dive and not diveroll:
-		if velocity.y < -180:
-			velocity.y = -180
+				$RollTime.start()
+				$RollCD.start()
+				if direction.x > 0:
+					velocity.x = 180
+				else:
+					velocity.x = -180
+				
+			elif not in_dive and not diveroll and not rollCD and ( Input.is_action_pressed("left") or  Input.is_action_pressed("right")):
+				in_dive = true
+				$JumpSound.play()
+				velocity.y = -150
+				if direction.x > 0:
+					velocity.x = 200
+				else:
+					velocity.x = -200
+				dir_diveroll = direction.x
+
+		if Input.is_action_just_pressed("jump") and not in_roll and not in_dive and not diveroll and not taking_damage:
+				if had_jumped == 0:
+					velocity.y = jump_velocity
+					had_jumped = 1
+					$JumpSound.play()
+					
+				elif had_jumped == 1:
+					in_double_jump = true
+					velocity.y = double_jump_velocity
+					had_jumped = 2
+					$SpinSound.play()
+		
+		if Input.is_action_just_released("jump") and not in_roll and not in_dive and not diveroll:
+			if velocity.y < -180:
+				velocity.y = -180
+				
+		if had_jumped == 0 and not is_on_floor() and coyote == false:
+			$CoyoteJump.start()
+			coyote = true
+		if Input.is_action_pressed("up"):
+			if $"../Camera2D".offset.y > -40:
+				$"../Camera2D".offset.y -= 4
+			else:
+				$"../Camera2D".offset.y = -40
+		else:
+			if $"../Camera2D".offset.y < 0:
+					$"../Camera2D".offset.y += 4
+			else:
+				$"../Camera2D".offset.y = 0
 			
-	if had_jumped == 0 and not is_on_floor() and coyote == false:
-		$CoyoteJump.start()
-		coyote = true
-	
-		
-	direction = Input.get_vector("left", "right", "up", "down")
-	if in_roll or in_dive or diveroll or taking_damage or life <= 0:
-		pass
-	elif direction.y < -0.50 and direction.y > -0.95:
-		if direction.x > 0:
-			if velocity.x >= 120:
-				velocity.x += -10
-			else:
-				velocity.x += 10
-		elif direction.x < 0:
-			if velocity.x <= -120:
-				velocity.x += 10
-			else:
-				velocity.x += -10
-	elif direction.y < -0.95:
-		if velocity.x > 0:
-			if velocity.x > 0:
-				velocity.x += - 20
-		else:
-			if velocity.x < 0:
-				velocity.x += 20
-	elif direction.y > 0.80:
-		if velocity.x > 0:
-			if velocity.x > 0:
-				velocity.x += - 3.5
-		else:
-			if velocity.x < 0:
-				velocity.x += 3.5
-	elif direction:
-		if direction.x > 0:
-			if velocity.x >= 160:
-				velocity.x = 160
-			else:
-				velocity.x += 20
-		elif direction.x < 0:
-			if velocity.x <= -160:
-				velocity.x = -160
-			else:
-				velocity.x += -20
-	elif in_air:
-		if velocity.x > 0:
-			if velocity.x > 0:
-				velocity.x = velocity.x - 3
-		else:
-			if velocity.x < 0:
-				velocity.x = velocity.x + 3
-	elif direction.x <= 0.4 and direction.x >= -0.4:
-		if velocity.x > 0:
-			velocity.x += -20
-			if velocity.x < 0:
-				velocity.x = 0
-		elif velocity.x < 0:
-			velocity.x += 20
-			if velocity.x > 0:
-				velocity.x = 0	
-		
-	
-	
-	if (Input.is_action_just_pressed("attack") or attack_clickoncd) and not in_dive and not in_roll and not diveroll and not taking_damage and not in_double_jump:
-		if attack_cd and not attack_clickoncd:
-			attack_clickoncd = true
-			$ClickonCD.start()
-		elif attack_cd:
+		direction = Input.get_vector("left", "right", "up", "down")
+		if in_roll or in_dive or diveroll or taking_damage or life <= 0:
 			pass
-		else:
-			$AttackSound.play()			
-			$Attack.Attack()
-			$AttackCD.start()
-			is_attacking = true
-			attack_cd = true
-	
+		elif direction.y < -0.50 and direction.y > -0.95:
+			if direction.x > 0:
+				if velocity.x >= 120:
+					velocity.x += -10
+				else:
+					velocity.x += 10
+			elif direction.x < 0:
+				if velocity.x <= -120:
+					velocity.x += 10
+				else:
+					velocity.x += -10
+		elif direction.y < -0.95:
+			if velocity.x > 0:
+				if velocity.x > 0:
+					velocity.x += - 20
+			else:
+				if velocity.x < 0:
+					velocity.x += 20
+		elif direction.y > 0.80:
+			if velocity.x > 0:
+				if velocity.x > 0:
+					velocity.x += - 3.5
+			else:
+				if velocity.x < 0:
+					velocity.x += 3.5
+		elif direction:
+			if direction.x > 0:
+				if velocity.x >= 160:
+					velocity.x = 160
+				else:
+					velocity.x += 20
+			elif direction.x < 0:
+				if velocity.x <= -160:
+					velocity.x = -160
+				else:
+					velocity.x += -20
+		elif in_air:
+			if velocity.x > 0:
+				if velocity.x > 0:
+					velocity.x = velocity.x - 3
+			else:
+				if velocity.x < 0:
+					velocity.x = velocity.x + 3
+		elif direction.x <= 0.4 and direction.x >= -0.4:
+			if velocity.x > 0:
+				velocity.x += -20
+				if velocity.x < 0:
+					velocity.x = 0
+			elif velocity.x < 0:
+				velocity.x += 20
+				if velocity.x > 0:
+					velocity.x = 0	
+			
+		
+		
+		if (Input.is_action_just_pressed("attack") or attack_clickoncd) and not in_dive and not in_roll and not diveroll and not taking_damage and not in_double_jump:
+			if attack_cd and not attack_clickoncd:
+				attack_clickoncd = true
+				$ClickonCD.start()
+			elif attack_cd:
+				pass
+			else:
+				$AttackSound.play()			
+				$Attack.Attack()
+				$AttackCD.start()
+				is_attacking = true
+				attack_cd = true
+		
 	
 	move_and_slide()
 	update_animation()
@@ -313,6 +331,8 @@ func _on_hurt_box_area_entered(area):
 		$DeadSound.play()
 		await TransitionScreen.on_transition_finished
 		get_tree().change_scene_to_file("res://game_over.tscn")
+	elif area.name == "Vitoria":
+		tela_vitoria.vitoria()
 	else:
 		if not in_roll and not diveroll:
 			enemy_dir = (area.get_parent().position.x - position.x)

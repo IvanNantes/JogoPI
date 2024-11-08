@@ -1,0 +1,137 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqqyq87jhuq25"]
+
+[ext_resource type="Script" path="res://TelaVitoria.gd" id="1_ndxxn"]
+[ext_resource type="FontFile" uid="uid://btgeg3ppq5wf8" path="res://Fonte/Alkhemikal.ttf" id="2_540fe"]
+[ext_resource type="Script" path="res://Tempo.gd" id="3_1xkbl"]
+[ext_resource type="Script" path="res://Moedas.gd" id="4_sh5s1"]
+[ext_resource type="AudioStream" uid="uid://cwpo241i6m6ee" path="res://Audio/Run and Slash.mp3" id="4_xu6oy"]
+[ext_resource type="Script" path="res://Nota.gd" id="5_33xu3"]
+[ext_resource type="Texture2D" uid="uid://byt0ygagfvu4y" path="res://arte/joia.png" id="5_vsq7s"]
+
+[node name="Control" type="Control"]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ndxxn")
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 11.975
+anchor_bottom = 6.775
+offset_left = 20.0
+offset_top = 12.0
+offset_right = -106.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.219608, 0.0588235, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 11.975
+anchor_bottom = 6.775
+offset_left = 22.0
+offset_top = 14.0
+offset_right = -109.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.607843, 0.737255, 0.0588235, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 11.975
+anchor_bottom = 6.775
+offset_left = 25.0
+offset_top = 17.0
+offset_right = -111.0
+offset_bottom = -61.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.219608, 0.0588235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 174.0
+offset_right = 298.0
+offset_bottom = 210.0
+theme_override_colors/default_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/normal_font = ExtResource("2_540fe")
+theme_override_font_sizes/normal_font_size = 15
+text = "Clique [ Enter ] para voltar para o menu"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -1.0
+offset_right = 323.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VoceVenceu" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/font = ExtResource("2_540fe")
+theme_override_font_sizes/font_size = 36
+text = "Você venceu
+"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+
+[node name="Tempo" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/font = ExtResource("2_540fe")
+theme_override_font_sizes/font_size = 18
+script = ExtResource("3_1xkbl")
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="Moedas" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/font = ExtResource("2_540fe")
+theme_override_font_sizes/font_size = 18
+script = ExtResource("4_sh5s1")
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="Nota" type="Label" parent="."]
+layout_mode = 2
+offset_left = 80.0
+offset_top = 128.0
+offset_right = 413.0
+offset_bottom = 179.0
+theme_override_colors/font_color = Color(0.607843, 0.737255, 0.0588235, 1)
+theme_override_fonts/font = ExtResource("2_540fe")
+theme_override_font_sizes/font_size = 50
+script = ExtResource("5_33xu3")
+
+[node name="WinnerMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xu6oy")
+volume_db = -9.874
+autoplay = true
+
+[node name="Joia" type="Sprite2D" parent="."]
+position = Vector2(270, 132)
+scale = Vector2(1.99609, 1.99609)
+texture = ExtResource("5_vsq7s")
